@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d558895e4bce4bb8970a12b98e1cbe24, type: 3}
+  m_Name: Kinder Bueno Normal
+  m_EditorClassIdentifier: 
+  ingredients:
+  - ingredient: {fileID: 11400000, guid: f2355ac946835a240942e2652d6ee3ac, type: 2}
+    serving: 100
+  - ingredient: {fileID: 11400000, guid: e20091dcc857f0241924cf9e99875c5e, type: 2}
+    serving: 250
+  - ingredient: {fileID: 11400000, guid: 9672050d0af55244f96e9cb147c40b1b, type: 2}
+    serving: 60
+  - ingredient: {fileID: 11400000, guid: e8028bb458159e8449aa7994f4fbd92b, type: 2}
+    serving: 100
+  - ingredient: {fileID: 11400000, guid: 9a5a9c82a0a789045979c14057ac5dad, type: 2}
+    serving: 2
+  - ingredient: {fileID: 11400000, guid: 0477d98df146c9f419adf204eca1ba8e, type: 2}
+    serving: 35
+  - ingredient: {fileID: 11400000, guid: 7ffa281b61220bf49a72d87ea22ff83d, type: 2}
+    serving: 60
+  - ingredient: {fileID: 11400000, guid: 6218765050b596743b2401cc28dbe073, type: 2}
+    serving: 100
+  - ingredient: {fileID: 11400000, guid: 00cc650bd6f388d42b08e97abc07544f, type: 2}
+    serving: 2

@@ -1,0 +1,29 @@
+{
+  "Recipes": 
+  [
+    {
+      "name": "Kinder Bueno Normal",
+      "id": 1,
+      "Ingredient1": "Chocolate",
+      "Amount1": 100,
+      "Ingredient2": "Milk",
+      "Amount2": 250,
+      "Ingredient3": "Sugar",
+      "Amount3": 60,
+      "Ingredient4": "Hazelnuts",
+      "Amount4": 100,
+      "Ingredient5": "Eggs",
+      "Amount5": 2,
+      "Ingredient6": "CornStarch",
+      "Amount6": 35,
+      "Ingredient7" : "WhiteChocolate",
+      "Amount7": 60,
+      "Ingredient8" : "Cream",
+      "Amount8": 100
+    },
+
+    {
+      
+    }
+  ]
+}
