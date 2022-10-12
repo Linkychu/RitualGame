@@ -1,20 +1,15 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using cookingData;
 
-namespace cookingData
-{
     
-    [System.Serializable]
-    public struct SIngredient
-    {
-        public Ingredient ingredient;
-        public int serving;
-    }
+    //Using structs here so we can have our ingredients have required servings for the recipes to work
+   
 
     [CreateAssetMenu(fileName = "Recipe", menuName = "Food/Recipe")]
 
     public class Recipe : ScriptableObject
     {
+        //list of ingredients and their servings
         public List<SIngredient> ingredients;
     }
-}
