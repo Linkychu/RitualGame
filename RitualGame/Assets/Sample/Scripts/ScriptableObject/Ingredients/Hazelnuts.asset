@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec5671345f94f48b8f37289b404acea, type: 3}
   m_Name: Hazelnuts
   m_EditorClassIdentifier: 
-  Model: {fileID: 0}
+  Model: {fileID: 2413131999469606226, guid: f1ad4f7978434884f89e8de16fbc112c, type: 3}
   AmountPerServing: 25
   Name: Hazelnut
+  icon: {fileID: 0}
+  SpawnedModel: {fileID: 0}

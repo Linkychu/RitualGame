@@ -108,6 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab0293b220b047a9ade3b7c29d3cf2a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AmountPerServing: 25
-  ingredient: {fileID: 11400000, guid: 0477d98df146c9f419adf204eca1ba8e, type: 2}
+  ingredient: {fileID: 11400000, guid: 6218765050b596743b2401cc28dbe073, type: 2}
   hasSpawned: 0

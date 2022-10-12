@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec5671345f94f48b8f37289b404acea, type: 3}
   m_Name: CornStarch
   m_EditorClassIdentifier: 
-  Model: {fileID: 0}
+  Model: {fileID: 2413131999469606226, guid: a6812bc9443eff04089769a417570b25, type: 3}
   AmountPerServing: 5
   Name: CornStarch
+  icon: {fileID: 0}
+  SpawnedModel: {fileID: 0}

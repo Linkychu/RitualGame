@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Extensions;
 
 
 namespace cookingData
@@ -17,7 +19,7 @@ namespace cookingData
     {
         private Ray ray;
         public List<Recipe> recipes = new List<Recipe>();
-        private List<SIngredient> CurrentIngredients = new List<SIngredient>();
+        private Dictionary<Ingredient, int> currentIngredients = new Dictionary<Ingredient, int>();
         public static CraftingManager instance { get; set; }
 
         private void Awake()
@@ -44,11 +46,12 @@ namespace cookingData
                 if (hit.transform.TryGetComponent(out IngredientScript script))
                 {
                     
-                    print(script.ingredient.Name);
+                   // print(script.ingredient.Name);
                     
                     //if Left mouse button is clicked
                     if (Input.GetMouseButtonDown(0))
                     {
+                        
                         //Passes the ingredient and serving values into the UseItem function
                         UseItem(script.ingredient, script.ingredient.AmountPerServing);
                     }
@@ -70,17 +73,73 @@ namespace cookingData
             };
             
             //adds it to our current item list
-            CurrentIngredients.Add(currentIngredient);
 
+            if (currentIngredients.ContainsKey(currentIngredient.ingredient))
+            {
+                int value = currentIngredients[currentIngredient.ingredient];
+
+                value += serving;
+
+                currentIngredients[currentIngredient.ingredient] = value;
+            }
+
+            else
+            {
+                 currentIngredients.Add(currentIngredient.ingredient, currentIngredient.serving);
+            }
+            
+            Debug.ClearDeveloperConsole();
+
+            foreach (var variIngredient in currentIngredients)
+            {
+                Debug.Log($"{variIngredient.Key} + {variIngredient.Value}" );
+            }
+          
             
         }
 
         public void Craft()
         {
             bool craftMatch;
-            
-            
+            int count = 0;
+            foreach (var t in recipes)
+            {
+                foreach (var ingredients in currentIngredients)
+                {
+                    SIngredient sIngredient = new SIngredient
+                    {
+                        ingredient = ingredients.Key,
+                        serving = ingredients.Value
+                    };
+
+                    if (t.ingredients.Contains(sIngredient))
+                    {
+                        count++;
+                        continue;
+                        
+                        
+                    }
+                    else
+                    {
+                        Debug.Log("You failed to Craft this item");
+                        return;
+                    }
+
+                }
+
+                if (count == t.ingredients.Count)
+                {
+                    Debug.Log($"You crafted {t.name}");
+                }
+
+                else
+                {
+                    Debug.Log("You failed to Craft Anything");
+                }
+
+                return;
+            }
         }
     }
-
+    
 }

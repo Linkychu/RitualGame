@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec5671345f94f48b8f37289b404acea, type: 3}
   m_Name: WhiteChocolate
   m_EditorClassIdentifier: 
-  Model: {fileID: 0}
+  Model: {fileID: 2413131999469606226, guid: 7b8da1cf01e3a27408a06994166838f8, type: 3}
   AmountPerServing: 20
   Name: WhiteChocolate
+  icon: {fileID: 0}
+  SpawnedModel: {fileID: 0}

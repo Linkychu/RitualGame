@@ -29,5 +29,3 @@ MonoBehaviour:
     serving: 60
   - ingredient: {fileID: 11400000, guid: 6218765050b596743b2401cc28dbe073, type: 2}
     serving: 100
-  - ingredient: {fileID: 11400000, guid: 00cc650bd6f388d42b08e97abc07544f, type: 2}
-    serving: 2
