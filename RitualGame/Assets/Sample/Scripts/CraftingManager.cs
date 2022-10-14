@@ -15,6 +15,41 @@ namespace cookingData
         public int serving;
     }
 
+   
+
+    public enum Taste
+    {
+        Default,
+        Sweet,
+        Bitter,
+        Wet,
+        Sour,
+        Salty,
+        Flavour,
+        Spicy   
+    };
+
+    public enum TasteResults
+    {
+        None,
+        Correct,
+        TooSweet,
+        TooBitter,
+        TooSalty,
+        TooSour,
+        TooSpicy,
+        TooWatery,
+        TooFluffy,
+        NotEnoughSugar,
+        NotEnoughSalt,
+        NotEnoughSour,
+        NotEnoughBitter,
+        NotEnoughSpice,
+        TooDry,
+        LacksFlavour,
+    };
+    
+
     public class CraftingManager : MonoBehaviour
     {
         private Ray ray;
@@ -30,7 +65,7 @@ namespace cookingData
         // Start is called before the first frame update
         void Start()
         {
-
+            currentIngredients.Clear();
         }
 
         // Update is called once per frame
@@ -90,55 +125,153 @@ namespace cookingData
             
             Debug.ClearDeveloperConsole();
 
-            foreach (var variIngredient in currentIngredients)
-            {
-                Debug.Log($"{variIngredient.Key} + {variIngredient.Value}" );
-            }
+            Debug.Log(currentIngredient.ingredient.Name + ": :" + currentIngredients[currentIngredient.ingredient]);
           
             
         }
 
         public void Craft()
         {
-            bool craftMatch;
-            int count = 0;
-            foreach (var t in recipes)
+
+            bool canCraft;
+            List<TasteResults> results = new List<TasteResults>();
+            
+
+
+            List<Recipe> CurrentRecipes = new List<Recipe>();
+            CurrentRecipes = recipes;
+            
+            foreach (var t in CurrentRecipes)
             {
+                int count = 0;
+                //var RIngredient = t.ingredients.ToList();
                 foreach (var ingredients in currentIngredients)
                 {
+                    Taste taste = ingredients.Key.itemTaste;
+                    
+                    
+                    
                     SIngredient sIngredient = new SIngredient
                     {
                         ingredient = ingredients.Key,
                         serving = ingredients.Value
                     };
 
-                    if (t.ingredients.Contains(sIngredient))
+
+
+
+
+                    var result = t.ingredients.First(x => x.ingredient.Name == sIngredient.ingredient.Name);
+                    if (!result.Equals(null))
                     {
+                        
+                        if (result.serving == sIngredient.serving)
+                        {
+                            Debug.Log($"{sIngredient.ingredient} + {sIngredient.serving} + {result.ingredient} + {result.serving}" );
+                            results.Add(TasteResults.Correct);
+                            
+                        }
+                        
+                        else if(sIngredient.serving > result.serving)
+                        {
+                            Debug.Log($"{sIngredient.ingredient} + {sIngredient.serving} + {result.ingredient} + {result.serving}" );
+                            switch (taste)
+                            {
+                                case Taste.Sweet:
+                                    results.Add(TasteResults.TooSweet);
+                                    break;
+                                case Taste.Salty:
+                                    results.Add(TasteResults.TooSalty);
+                                    break;
+                                case Taste.Bitter:
+                                    results.Add(TasteResults.TooBitter);
+                                    break;
+                                case Taste.Sour:
+                                    results.Add(TasteResults.TooSour);
+                                    break;
+                                case Taste.Spicy:
+                                    results.Add(TasteResults.TooSpicy);
+                                    break;
+                                case Taste.Flavour:
+                                    results.Add(TasteResults.TooFluffy);
+                                    break;
+                                case Taste.Wet:
+                                    results.Add(TasteResults.TooWatery);
+                                    break;
+                            }
+                            
+                            Debug.Log("AddedTooMuch");
+                        }
+
+                        else if ((sIngredient.serving < result.serving) && sIngredient.serving > 0)
+                        {
+                            Debug.Log($"{sIngredient.ingredient} + {sIngredient.serving} + {result.ingredient} + {result.serving}" );
+                            switch (taste)
+                            {
+                                case Taste.Sweet:
+                                    results.Add(TasteResults.NotEnoughSugar);
+                                    break;
+                                case Taste.Salty:
+                                    results.Add(TasteResults.NotEnoughSalt);
+                                    break;
+                                case Taste.Bitter:
+                                    results.Add(TasteResults.NotEnoughBitter);
+                                    break;
+                                case Taste.Sour:
+                                    results.Add(TasteResults.NotEnoughSour);
+                                    break;
+                                case Taste.Spicy:
+                                    results.Add(TasteResults.NotEnoughSpice);
+                                    break;   
+                                case Taste.Flavour:
+                                    results.Add(TasteResults.LacksFlavour);
+                                    break;
+                                case Taste.Wet:
+                                    results.Add(TasteResults.TooDry);
+                                    break;
+                            }
+                            
+                            Debug.Log("TooLittle");
+                        }
+                        
                         count++;
-                        continue;
                         
                         
+
                     }
                     else
                     {
-                        Debug.Log("You failed to Craft this item");
-                        return;
+                        Debug.Log($"{sIngredient.ingredient}");
+                        
                     }
 
                 }
 
                 if (count == t.ingredients.Count)
                 {
-                    Debug.Log($"You crafted {t.name}");
+                    
+                    Debug.Log($"You crafted a {t.name}");
+                    foreach (var varResult in results)
+                    {
+                        Debug.Log(varResult);
+                    }
+                    
+                    
+                    break;
                 }
 
                 else
                 {
-                    Debug.Log("You failed to Craft Anything");
+                    Debug.Log(t.name);
                 }
-
-                return;
+                
+                
             }
+            
+            /*foreach (var result in results)
+            {
+                Debug.Log(result);
+            }*/
         }
     }
     

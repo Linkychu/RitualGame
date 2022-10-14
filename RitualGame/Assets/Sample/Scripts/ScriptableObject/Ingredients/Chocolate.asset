@@ -15,5 +15,7 @@ MonoBehaviour:
   Model: {fileID: 2413131999469606226, guid: c34b502a6caf0a14c9182a538e06751c, type: 3}
   AmountPerServing: 20
   Name: MilkChocolate
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: db66f2bbdf89df74e81ffe9ec2e9303d, type: 3}
+  itemTaste: 1
+  id: 1
   SpawnedModel: {fileID: 0}

@@ -1,5 +1,6 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
+using cookingData;
 
 
     [CreateAssetMenu(fileName = "Ingredient", menuName = "Food/Ingredient")]
@@ -8,7 +9,9 @@ using UnityEngine;
         public GameObject Model;
         public int AmountPerServing;
         public string Name;
-        public Image icon;
+        public Sprite icon;
+        public Taste itemTaste;
+        public int id;
 
         [HideInInspector] public GameObject SpawnedModel;
         

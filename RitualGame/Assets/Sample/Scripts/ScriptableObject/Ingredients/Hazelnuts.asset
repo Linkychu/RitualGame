@@ -15,5 +15,7 @@ MonoBehaviour:
   Model: {fileID: 2413131999469606226, guid: f1ad4f7978434884f89e8de16fbc112c, type: 3}
   AmountPerServing: 25
   Name: Hazelnut
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c8de697b69f083c46859df1faae4dc44, type: 3}
+  itemTaste: 6
+  id: 5
   SpawnedModel: {fileID: 0}

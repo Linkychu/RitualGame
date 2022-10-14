@@ -16,4 +16,6 @@ MonoBehaviour:
   AmountPerServing: 5
   Name: CornStarch
   icon: {fileID: 0}
+  itemTaste: 2
+  id: 2
   SpawnedModel: {fileID: 0}

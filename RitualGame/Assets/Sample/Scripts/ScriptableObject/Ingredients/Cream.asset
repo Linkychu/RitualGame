@@ -16,4 +16,6 @@ MonoBehaviour:
   AmountPerServing: 25
   Name: Cream
   icon: {fileID: 0}
+  itemTaste: 6
+  id: 3
   SpawnedModel: {fileID: 0}

@@ -16,4 +16,6 @@ MonoBehaviour:
   AmountPerServing: 10
   Name: Sugar
   icon: {fileID: 0}
+  itemTaste: 1
+  id: 7
   SpawnedModel: {fileID: 0}

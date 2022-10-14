@@ -15,3 +15,7 @@ MonoBehaviour:
   Model: {fileID: 0}
   AmountPerServing: 1
   Name: Wafer
+  icon: {fileID: 0}
+  itemTaste: 0
+  id: 0
+  SpawnedModel: {fileID: 0}
