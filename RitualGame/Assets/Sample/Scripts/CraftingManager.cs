@@ -54,7 +54,7 @@ namespace cookingData
     {
         private Ray ray;
         public List<Recipe> recipes = new List<Recipe>();
-        private Dictionary<Ingredient, int> currentIngredients = new Dictionary<Ingredient, int>();
+       
         public static CraftingManager instance { get; set; }
 
         private void Awake()
@@ -65,7 +65,7 @@ namespace cookingData
         // Start is called before the first frame update
         void Start()
         {
-            currentIngredients.Clear();
+            InventoryManager.instance.CurrentIngredients.Clear();
         }
 
         // Update is called once per frame
@@ -109,23 +109,12 @@ namespace cookingData
             
             //adds it to our current item list
 
-            if (currentIngredients.ContainsKey(currentIngredient.ingredient))
-            {
-                int value = currentIngredients[currentIngredient.ingredient];
-
-                value += serving;
-
-                currentIngredients[currentIngredient.ingredient] = value;
-            }
-
-            else
-            {
-                 currentIngredients.Add(currentIngredient.ingredient, currentIngredient.serving);
-            }
             
+            
+            InventoryManager.instance.AddItem(currentIngredient.ingredient, serving);
             Debug.ClearDeveloperConsole();
 
-            Debug.Log(currentIngredient.ingredient.Name + ": :" + currentIngredients[currentIngredient.ingredient]);
+            Debug.Log(currentIngredient.ingredient.Name + ": :" + InventoryManager.instance.CurrentIngredients[currentIngredient.ingredient]);
           
             
         }
@@ -145,7 +134,7 @@ namespace cookingData
             {
                 int count = 0;
                 //var RIngredient = t.ingredients.ToList();
-                foreach (var ingredients in currentIngredients)
+                foreach (var ingredients in InventoryManager.instance.CurrentIngredients)
                 {
                     Taste taste = ingredients.Key.itemTaste;
                     
@@ -251,10 +240,21 @@ namespace cookingData
                 {
                     
                     Debug.Log($"You crafted a {t.name}");
+                    
                     foreach (var varResult in results)
                     {
+                       
                         Debug.Log(varResult);
                     }
+                    
+                    
+                    foreach (var ingredient in InventoryManager.instance.CurrentIngredients)
+                    {
+                        InventoryManager.instance.SubtractItem(ingredient.Key, ingredient.Value);
+                            
+                    }
+                    
+                    
                     
                     
                     break;

@@ -15,7 +15,7 @@ MonoBehaviour:
   Model: {fileID: 2413131999469606226, guid: 448dfaea1e7aecf42a65a53dcb90272b, type: 3}
   AmountPerServing: 25
   Name: Cream
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 95dadae6eaf8dcf41b8e45b1b0c1ea0d, type: 3}
   itemTaste: 6
   id: 3
   SpawnedModel: {fileID: 0}
