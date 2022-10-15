@@ -128,7 +128,7 @@ namespace cookingData
             //adds it to our current item list
 
             
-            
+            //rounds it up
             InventoryManager.instance.AddItem(currentIngredient.ingredient, Mathf.RoundToInt(serving * GameManager.instance.multiplier));
             
             
@@ -167,19 +167,23 @@ namespace cookingData
                   
                     SIngredient result;
                     
+                    //checks the first item that matches the name of the ingredient and recipe ingredient
                     result = t.ingredients.FirstOrDefault(x => x.ingredient.Name == sIngredient.ingredient.Name);
 
+                    //makes sure there's a result
                         if (!result.Equals(null))
                     {
                         
+                        
                         if (result.serving == Mathf.RoundToInt(sIngredient.serving))
                         {
-
+                            //checks how many perfect ingredients we got (one's that match)
                             perfectCount++;
                         }
                         
                         if(sIngredient.serving > Mathf.RoundToInt(result.serving))
                         {
+                            //checks to see if the amount in the inventory is greater than the one the recipe, if so, based on the ingredients flavour it will check and see if it's too spicy/too sweet, etc
                             switch (taste)
                             {
                                 case Taste.Sweet:
@@ -208,7 +212,8 @@ namespace cookingData
                             Debug.Log("AddedTooMuch");
                         }
 
-                        else if ((sIngredient.serving < Mathf.RoundToInt(result.serving)) && sIngredient.serving > 0)
+                        //same thing as above, but checks if it's below instead and makes sure the ingredient isn't below 0
+                        else if ((sIngredient.serving < Mathf.RoundToInt(result.serving)) && sIngredient.serving > 0 && result.serving > 0)
                         {
                             
                             switch (taste)
@@ -255,26 +260,36 @@ namespace cookingData
                 }
 
 
+                //we need a dictionary to check how many results for each taste
                 Dictionary<TasteResults, int> resultsMap = new Dictionary<TasteResults, int>();
+                
+                //new string list to print out our top 3 results
                 List<string> outputResults = new List<string>(3);
+                
+                //creates a range of 3 empty strings 
                 outputResults.AddRange(new string[3]);
                 Texture image;
+                
+                //just makes sure we have the right ingredients
                 if (count == t.ingredients.Count)
                 {
                     
                   
-                   
+                   //sets image texture to be that of the recipe's
                     image = t.icon.texture;
                     
 
+                    //checks if we have a perfect recipe by comparing our perfect scores
                     if (perfectCount == results.Count)
                     {
                             perfectBueno = true;    
                         
                     }
                     
+                    
                     for (int i = 0; i < results.Count; i++)
                     {
+                        //checks if the dictionary has a key with our results name, if so it changes the value instead to prevent duplicates
                         if (!resultsMap.ContainsKey(results[i]))
                         {
                             resultsMap.Add(results[i], 1);
@@ -287,26 +302,30 @@ namespace cookingData
                         
                     }
 
-                    
+                    //removes the items from the inventory
                     foreach (var ingredient in InventoryManager.instance.CurrentIngredients.ToList())
                     {
                         InventoryManager.instance.SubtractItem(ingredient.Key, ingredient.Value);
                         
                     }
                     
+                    //puts them to a list to remove the Enumerable operations on them
                     List<KeyValuePair<TasteResults, int>> list = resultsMap.ToList();
 
                     var sortedResults = from entry in list orderby entry.Value descending select entry;
 
-
+                    
                     var listedResults = sortedResults.ToList();
                     
+                    //another string array for the purpose of having different texts, i know it can be optimised but I'm lazy
                     List<string> stringNames = new List<string>(3);
 
+                    
                     string tasteName = String.Empty;
 
 
                     string text = String.Empty;
+                    //checks if it's the perfect bueno, if not, gives each mistake it's own dialogue
                     if (!perfectBueno)
                     {
                         for (int i = 0; i < outputResults.Capacity; i++)
@@ -375,7 +394,7 @@ namespace cookingData
 
 
 
-                        
+                        //new dialogue $"{ }" is known as a string format and is easier than writing " " + (variable name) + " "
                         switch (stringNames.Count)
                         {
                             case 3:
@@ -396,11 +415,13 @@ namespace cookingData
                     }
 
 
+                    //perfect bueno dialogue
                     else if (perfectBueno)
                     {
                         text = $"You crafted a {t.name}";   
                     }
                     
+                    //result if you somehow managed to craft something that doesn't exist
                     else
                     {
                         text = $"You crafted something that isn't even on the menu!??? How did you manage that?";
@@ -415,7 +436,20 @@ namespace cookingData
                     isFrozen = true;
 
 
-                }   
+                }
+
+                //failsafe dialogue
+
+                else
+                {
+                    string text = $"You crafted something that isn't even on the menu!??? How did you manage that?";
+                    image = emptyImage;
+                    itemBox.SetActive(true);
+                    itemBox.GetComponentInChildren<RawImage>().texture = image;
+                    itemBox.GetComponentInChildren<TextMeshProUGUI>().text = text;
+                    isFrozen = true;
+                }
+                
 
                
                 
@@ -435,6 +469,7 @@ namespace cookingData
 
         public void OnBoxClicked()
         {
+            //resets variables
             perfectBueno = false;
             InventoryManager.instance.CurrentIngredients.Clear();
             Time.timeScale = 1;
