@@ -19,7 +19,12 @@ public class InventoryManager : MonoBehaviour
     public RawImage[] images;
 
     private Texture defaultTexture;
-    
+
+    public GameObject itemManager;
+    public GameObject craftIcon;
+
+    private bool isActive = true;
+    [SerializeField] private KeyCode hideKey;
     private void Awake()
     {
         instance = this;
@@ -38,19 +43,25 @@ public class InventoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(hideKey))
+        {
+            isActive = !isActive;
+            itemManager.SetActive(isActive);
+            craftIcon.SetActive(isActive);
+        }
     }
 
     //removes item from inventory when clicked
     public void onIconClick(int id)
     {
-        SubtractItem(ingredientList[id], ingredientList[id].AmountPerServing);
+        SubtractItem(ingredientList[id], (ingredientList[id].AmountPerServing ));
     }
 
     
 
     public void AddItem(Ingredient ingredient, int amount)
     {
+        //amount = Mathf.FloorToInt(amount * GameManager.instance.multiplier);
         //if the dictionary already has the item, changes the value of the item instead
         if (CurrentIngredients.ContainsKey(ingredient))
         {

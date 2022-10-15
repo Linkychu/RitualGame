@@ -29,3 +29,4 @@ MonoBehaviour:
     serving: 60
   - ingredient: {fileID: 11400000, guid: 6218765050b596743b2401cc28dbe073, type: 2}
     serving: 100
+  icon: {fileID: 21300000, guid: b4269fdbd62a7e64eaa9636c61b659b1, type: 3}

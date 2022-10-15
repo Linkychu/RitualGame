@@ -12,4 +12,6 @@ using cookingData;
     {
         //list of ingredients and their servings
         public List<SIngredient> ingredients;
+        
+        public Sprite icon;
     }

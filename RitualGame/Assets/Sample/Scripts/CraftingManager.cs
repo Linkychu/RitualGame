@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Extensions;
+using TMPro;
+using UnityEngine.UI;
 
 
 namespace cookingData
@@ -15,7 +17,7 @@ namespace cookingData
         public int serving;
     }
 
-   
+    
 
     public enum Taste
     {
@@ -47,15 +49,29 @@ namespace cookingData
         NotEnoughSpice,
         TooDry,
         LacksFlavour,
+        WrongIngredient
     };
+
     
 
     public class CraftingManager : MonoBehaviour
     {
         private Ray ray;
+
+        public GameObject itemBox;
         public List<Recipe> recipes = new List<Recipe>();
        
         public static CraftingManager instance { get; set; }
+        
+        
+        [SerializeField]private Texture emptyImage;
+
+        private bool isFrozen;
+
+        private bool perfectBueno;
+
+        private int perfectCount;
+
 
         private void Awake()
         {
@@ -65,12 +81,14 @@ namespace cookingData
         // Start is called before the first frame update
         void Start()
         {
+            isFrozen = false;
             InventoryManager.instance.CurrentIngredients.Clear();
         }
 
         // Update is called once per frame
         void Update()
         {
+            
             RaycastHit hit;
             //sets the ray position to the mouse position
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -84,7 +102,7 @@ namespace cookingData
                    // print(script.ingredient.Name);
                     
                     //if Left mouse button is clicked
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButtonDown(0) && !isFrozen)
                     {
                         
                         //Passes the ingredient and serving values into the UseItem function
@@ -111,11 +129,9 @@ namespace cookingData
 
             
             
-            InventoryManager.instance.AddItem(currentIngredient.ingredient, serving);
-            Debug.ClearDeveloperConsole();
-
-            Debug.Log(currentIngredient.ingredient.Name + ": :" + InventoryManager.instance.CurrentIngredients[currentIngredient.ingredient]);
-          
+            InventoryManager.instance.AddItem(currentIngredient.ingredient, Mathf.RoundToInt(serving * GameManager.instance.multiplier));
+            
+            
             
         }
 
@@ -125,13 +141,13 @@ namespace cookingData
             bool canCraft;
             List<TasteResults> results = new List<TasteResults>();
             
-
-
-            List<Recipe> CurrentRecipes = new List<Recipe>();
-            CurrentRecipes = recipes;
             
-            foreach (var t in CurrentRecipes)
-            {
+
+
+
+            var t = recipes[0];
+            
+            
                 int count = 0;
                 //var RIngredient = t.ingredients.ToList();
                 foreach (var ingredients in InventoryManager.instance.CurrentIngredients)
@@ -148,22 +164,22 @@ namespace cookingData
 
 
 
+                  
+                    SIngredient result;
+                    
+                    result = t.ingredients.FirstOrDefault(x => x.ingredient.Name == sIngredient.ingredient.Name);
 
-
-                    var result = t.ingredients.First(x => x.ingredient.Name == sIngredient.ingredient.Name);
-                    if (!result.Equals(null))
+                        if (!result.Equals(null))
                     {
                         
-                        if (result.serving == sIngredient.serving)
+                        if (result.serving == Mathf.RoundToInt(sIngredient.serving))
                         {
-                            Debug.Log($"{sIngredient.ingredient} + {sIngredient.serving} + {result.ingredient} + {result.serving}" );
-                            results.Add(TasteResults.Correct);
-                            
+
+                            perfectCount++;
                         }
                         
-                        else if(sIngredient.serving > result.serving)
+                        if(sIngredient.serving > Mathf.RoundToInt(result.serving))
                         {
-                            Debug.Log($"{sIngredient.ingredient} + {sIngredient.serving} + {result.ingredient} + {result.serving}" );
                             switch (taste)
                             {
                                 case Taste.Sweet:
@@ -192,9 +208,9 @@ namespace cookingData
                             Debug.Log("AddedTooMuch");
                         }
 
-                        else if ((sIngredient.serving < result.serving) && sIngredient.serving > 0)
+                        else if ((sIngredient.serving < Mathf.RoundToInt(result.serving)) && sIngredient.serving > 0)
                         {
-                            Debug.Log($"{sIngredient.ingredient} + {sIngredient.serving} + {result.ingredient} + {result.serving}" );
+                            
                             switch (taste)
                             {
                                 case Taste.Sweet:
@@ -223,56 +239,212 @@ namespace cookingData
                             Debug.Log("TooLittle");
                         }
                         
+                        else
+                        {
+                            results.Add(TasteResults.WrongIngredient);
+                        }
+                        
                         count++;
                         
                         
 
                     }
-                    else
-                    {
-                        Debug.Log($"{sIngredient.ingredient}");
-                        
-                    }
+
+                    
 
                 }
 
+
+                Dictionary<TasteResults, int> resultsMap = new Dictionary<TasteResults, int>();
+                List<string> outputResults = new List<string>(3);
+                outputResults.AddRange(new string[3]);
+                Texture image;
                 if (count == t.ingredients.Count)
                 {
                     
-                    Debug.Log($"You crafted a {t.name}");
+                  
+                   
+                    image = t.icon.texture;
                     
-                    foreach (var varResult in results)
+
+                    if (perfectCount == results.Count)
                     {
-                       
-                        Debug.Log(varResult);
+                            perfectBueno = true;    
+                        
                     }
                     
+                    for (int i = 0; i < results.Count; i++)
+                    {
+                        if (!resultsMap.ContainsKey(results[i]))
+                        {
+                            resultsMap.Add(results[i], 1);
+                        }
+
+                        else
+                        {
+                            resultsMap[results[i]] += 1;
+                        }
+                        
+                    }
+
                     
-                    foreach (var ingredient in InventoryManager.instance.CurrentIngredients)
+                    foreach (var ingredient in InventoryManager.instance.CurrentIngredients.ToList())
                     {
                         InventoryManager.instance.SubtractItem(ingredient.Key, ingredient.Value);
-                            
+                        
                     }
                     
-                    
-                    
-                    
-                    break;
-                }
+                    List<KeyValuePair<TasteResults, int>> list = resultsMap.ToList();
 
-                else
+                    var sortedResults = from entry in list orderby entry.Value descending select entry;
+
+
+                    var listedResults = sortedResults.ToList();
+                    
+                    List<string> stringNames = new List<string>(3);
+
+                    string tasteName = String.Empty;
+
+
+                    string text = String.Empty;
+                    if (!perfectBueno)
+                    {
+                        for (int i = 0; i < outputResults.Capacity; i++)
+                        {
+                            if (listedResults[i].Value > 0)
+                            {
+                                #region Results
+
+                                switch (listedResults[i].Key)
+                                {
+                                    case TasteResults.TooSweet:
+                                        tasteName = "Lacks Sweet";
+                                        break;
+
+                                    case TasteResults.TooFluffy:
+                                        tasteName = "Too Fluffy";
+                                        break;
+
+                                    case TasteResults.TooDry:
+                                        tasteName = "Too Dry";
+                                        break;
+                                    case TasteResults.TooBitter:
+                                        tasteName = "Too Bitter";
+                                        break;
+                                    case TasteResults.TooSalty:
+                                        tasteName = "Too Bitter";
+                                        break;
+                                    case TasteResults.TooSour:
+                                        tasteName = "Too Sour";
+                                        break;
+
+                                    case TasteResults.TooWatery:
+                                        tasteName = "Too Watery";
+                                        break;
+
+                                    case TasteResults.TooSpicy:
+                                        tasteName = "Too Spicy";
+                                        break;
+                                    case TasteResults.NotEnoughSugar:
+                                        tasteName = "Lacking in Sugar";
+                                        break;
+                                    case TasteResults.NotEnoughSalt:
+                                        tasteName = "Lacking in Salt";
+                                        break;
+                                    case TasteResults.NotEnoughSour:
+                                        tasteName = "Lacking in Sourness";
+                                        break;
+                                    case TasteResults.NotEnoughSpice:
+                                        tasteName = "Lacking in Spice";
+                                        break;
+                                    case TasteResults.NotEnoughBitter:
+                                        tasteName = "Lacking in Bitterness";
+                                        break;
+
+                                }
+
+                                if (tasteName != String.Empty)
+                                {
+                                    stringNames.Add(tasteName);
+                                }
+
+                                #endregion
+
+                            }
+                        }
+
+
+
+                        
+                        switch (stringNames.Count)
+                        {
+                            case 3:
+                                text =
+                                    $"You crafted a {t.name}, however your {t.name} was {stringNames[0]} , {stringNames[1]} and {stringNames[2]}";
+
+                                break;
+                            case 2:
+                                text =
+                                    $"You crafted a {t.name}, however your {t.name} was {stringNames[0]} and {stringNames[1]}";
+                                break;
+                            case 1:
+                                text =
+                                    $"You crafted a {t.name}, however your {t.name} was {stringNames[0]}";
+                                break;
+
+                        }
+                    }
+
+
+                    else if (perfectBueno)
+                    {
+                        text = $"You crafted a {t.name}";   
+                    }
+                    
+                    else
+                    {
+                        text = $"You crafted something that isn't even on the menu!??? How did you manage that?";
+                        image = emptyImage;
+                   
+
+                    }
+
+                    itemBox.SetActive(true);
+                    itemBox.GetComponentInChildren<RawImage>().texture = image;
+                    itemBox.GetComponentInChildren<TextMeshProUGUI>().text = text;
+                    isFrozen = true;
+
+
+                }   
+
+               
+                
+                
+                
+
+
+
+
+
+
+                /*foreach (var result in results)
                 {
-                    Debug.Log(t.name);
-                }
-                
-                
-            }
-            
-            /*foreach (var result in results)
-            {
-                Debug.Log(result);
-            }*/
+                    Debug.Log(result);
+                }*/
+        }
+
+        public void OnBoxClicked()
+        {
+            perfectBueno = false;
+            InventoryManager.instance.CurrentIngredients.Clear();
+            Time.timeScale = 1;
+            itemBox.SetActive((false));
+            isFrozen = false;
+            perfectCount = 0;
+            IngredientGenerator.instance.Begin();
         }
     }
+    
+    
     
 }
