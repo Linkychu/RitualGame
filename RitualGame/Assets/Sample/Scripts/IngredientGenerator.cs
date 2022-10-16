@@ -55,6 +55,7 @@ public class IngredientGenerator : MonoBehaviour
 
      void DestroyChildren()
      {
+         //looks for any ingredients and destroys them 
          foreach (Transform IngredientTransform in ingredientParent)
          {
              Destroy(IngredientTransform.gameObject);
@@ -62,6 +63,7 @@ public class IngredientGenerator : MonoBehaviour
      }
     public void RandomiseRecipe()
     {
+        //shuffles list and adds ingredients
         CraftingManager.instance.recipes.Shuffle();
         var MyRecipes = CraftingManager.instance.recipes[0].ingredients;
         foreach (var varIngredient in MyRecipes)

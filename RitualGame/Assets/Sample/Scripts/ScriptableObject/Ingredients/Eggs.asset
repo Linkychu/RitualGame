@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec5671345f94f48b8f37289b404acea, type: 3}
   m_Name: Eggs
   m_EditorClassIdentifier: 
-  Model: {fileID: 2413131999469606226, guid: 9eed5708062135044afcbbe460fcab71, type: 3}
+  Model: {fileID: 1324702953529542215, guid: d3125a429c889b24fae347780d2a6237, type: 3}
   AmountPerServing: 2
   Name: Eggs
   icon: {fileID: 21300000, guid: bebbac422becec1458320ea61576833d, type: 3}

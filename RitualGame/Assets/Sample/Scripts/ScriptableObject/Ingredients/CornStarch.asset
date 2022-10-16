@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec5671345f94f48b8f37289b404acea, type: 3}
   m_Name: CornStarch
   m_EditorClassIdentifier: 
-  Model: {fileID: 2413131999469606226, guid: a6812bc9443eff04089769a417570b25, type: 3}
+  Model: {fileID: 5186581094980785379, guid: 7229c8e1480487f4d8d293a207d65b67, type: 3}
   AmountPerServing: 5
   Name: CornStarch
   icon: {fileID: 21300000, guid: f31ce5aed6c892348aae15fe78e0228f, type: 3}
