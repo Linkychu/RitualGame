@@ -501,8 +501,8 @@ MonoBehaviour:
   dialogueBox: {fileID: 754307533}
   multiplier: 0
   ingredientMultiplier: 1
-  inflationMultiplier: 2
-  deflationMultiplier: 0.5
+  inflationMultiplier: 1
+  deflationMultiplier: 1
   timeUntilRandomizer: 50
   coolDown: 100
   bigHand: {fileID: 26393153}

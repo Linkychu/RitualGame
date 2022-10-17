@@ -21,34 +21,40 @@ namespace cookingData
 
     public enum Taste
     {
-        Default,
-        Sweet,
-        Bitter,
-        Wet,
-        Sour,
-        Salty,
-        Flavour,
-        Spicy   
+       WhiteChocolate,
+       MilkChocolate,
+       Cornstarch,
+       Coconut,
+       Milk,
+       Cream,
+       Eggs,
+       Hazelnuts,
+       Sugar
+       
     };
 
     public enum TasteResults
     {
         None,
         Correct,
-        TooSweet,
-        TooBitter,
-        TooSalty,
-        TooSour,
-        TooSpicy,
-        TooWatery,
-        TooFluffy,
-        NotEnoughSugar,
-        NotEnoughSalt,
-        NotEnoughSour,
-        NotEnoughBitter,
-        NotEnoughSpice,
-        TooDry,
-        LacksFlavour,
+        TooMuchMilkChocolate,
+        TooMuchWhiteChocolate,
+        TooMuchSugar,
+        TooMuchCornstarch,
+        TooMuchMilk,
+        TooMuchHazelnuts,
+        TooMuchCream,
+        TooMuchCoconut,
+        TooMuchEggs,
+        TooLittleMilkChocolate,
+        TooLittleWhiteChocolate,
+        TooLittleSugar,
+        TooLittleCornstarch,
+        TooLittleMilk,
+        TooLittleHazelnuts,
+        TooLittleCream,
+        TooLittleCoconut,
+        TooLittleEggs,
         WrongIngredient
     };
 
@@ -189,27 +195,34 @@ namespace cookingData
                             //checks to see if the amount in the inventory is greater than the one the recipe, if so, based on the ingredients flavour it will check and see if it's too spicy/too sweet, etc
                             switch (taste)
                             {
-                                case Taste.Sweet:
-                                    results.Add(TasteResults.TooSweet);
+                                case Taste.MilkChocolate:
+                                    results.Add(TasteResults.TooMuchMilkChocolate);
                                     break;
-                                case Taste.Salty:
-                                    results.Add(TasteResults.TooSalty);
+                                case Taste.WhiteChocolate:
+                                    results.Add(TasteResults.TooMuchWhiteChocolate);
                                     break;
-                                case Taste.Bitter:
-                                    results.Add(TasteResults.TooBitter);
+                                case Taste.Milk:
+                                    results.Add(TasteResults.TooMuchMilk);
                                     break;
-                                case Taste.Sour:
-                                    results.Add(TasteResults.TooSour);
+                                case Taste.Coconut:
+                                    results.Add(TasteResults.TooMuchCoconut);
                                     break;
-                                case Taste.Spicy:
-                                    results.Add(TasteResults.TooSpicy);
+                                case Taste.Cornstarch:
+                                    results.Add(TasteResults.TooMuchCornstarch);
                                     break;
-                                case Taste.Flavour:
-                                    results.Add(TasteResults.TooFluffy);
+                                case Taste.Cream:
+                                    results.Add(TasteResults.TooMuchCream);
                                     break;
-                                case Taste.Wet:
-                                    results.Add(TasteResults.TooWatery);
+                                case Taste.Hazelnuts:
+                                    results.Add(TasteResults.TooMuchHazelnuts);
                                     break;
+                                case Taste.Eggs:
+                                    results.Add(TasteResults.TooMuchEggs);
+                                    break;
+                                case Taste.Sugar:
+                                    results.Add(TasteResults.TooMuchSugar);
+                                    break;
+                                
                             }
                             
                             
@@ -223,27 +236,34 @@ namespace cookingData
                             
                             switch (taste)
                             {
-                                case Taste.Sweet:
-                                    results.Add(TasteResults.NotEnoughSugar);
+                                case Taste.MilkChocolate:
+                                    results.Add(TasteResults.TooLittleMilkChocolate);
                                     break;
-                                case Taste.Salty:
-                                    results.Add(TasteResults.NotEnoughSalt);
+                                case Taste.WhiteChocolate:
+                                    results.Add(TasteResults.TooLittleWhiteChocolate);
                                     break;
-                                case Taste.Bitter:
-                                    results.Add(TasteResults.NotEnoughBitter);
+                                case Taste.Milk:
+                                    results.Add(TasteResults.TooLittleMilk);
                                     break;
-                                case Taste.Sour:
-                                    results.Add(TasteResults.NotEnoughSour);
+                                case Taste.Coconut:
+                                    results.Add(TasteResults.TooLittleCoconut);
                                     break;
-                                case Taste.Spicy:
-                                    results.Add(TasteResults.NotEnoughSpice);
-                                    break;   
-                                case Taste.Flavour:
-                                    results.Add(TasteResults.LacksFlavour);
+                                case Taste.Cornstarch:
+                                    results.Add(TasteResults.TooLittleCornstarch);
                                     break;
-                                case Taste.Wet:
-                                    results.Add(TasteResults.TooDry);
+                                case Taste.Cream:
+                                    results.Add(TasteResults.TooLittleCream);
                                     break;
+                                case Taste.Hazelnuts:
+                                    results.Add(TasteResults.TooLittleHazelnuts);
+                                    break;
+                                case Taste.Eggs:
+                                    results.Add(TasteResults.TooLittleEggs);
+                                    break;
+                                case Taste.Sugar:
+                                    results.Add(TasteResults.TooLittleSugar);
+                                    break;
+                                    
                             }
                             
                             
@@ -345,50 +365,68 @@ namespace cookingData
 
                                 switch (listedResults[i].Key)
                                 {
-                                    case TasteResults.TooSweet:
-                                        tasteName = "Lacks Sweet";
+                                    case TasteResults.TooMuchSugar:
+                                        tasteName = "Too Sweet";
                                         break;
 
-                                    case TasteResults.TooFluffy:
+                                    case TasteResults.TooMuchEggs:
                                         tasteName = "Too Fluffy";
                                         break;
 
-                                    case TasteResults.TooDry:
-                                        tasteName = "Too Dry";
-                                        break;
-                                    case TasteResults.TooBitter:
-                                        tasteName = "Too Bitter";
-                                        break;
-                                    case TasteResults.TooSalty:
-                                        tasteName = "Too Bitter";
-                                        break;
-                                    case TasteResults.TooSour:
-                                        tasteName = "Too Sour";
-                                        break;
-
-                                    case TasteResults.TooWatery:
+                                    case TasteResults.TooMuchMilk:
                                         tasteName = "Too Watery";
                                         break;
-
-                                    case TasteResults.TooSpicy:
-                                        tasteName = "Too Spicy";
+                                    case TasteResults.TooMuchCornstarch:
+                                        tasteName = "Too Much Cornstarch";
                                         break;
-                                    case TasteResults.NotEnoughSugar:
-                                        tasteName = "Lacking in Sugar";
+                                    case TasteResults.TooMuchCoconut:
+                                        tasteName = "Too Much Coconut";
                                         break;
-                                    case TasteResults.NotEnoughSalt:
-                                        tasteName = "Lacking in Salt";
-                                        break;
-                                    case TasteResults.NotEnoughSour:
-                                        tasteName = "Lacking in Sourness";
-                                        break;
-                                    case TasteResults.NotEnoughSpice:
-                                        tasteName = "Lacking in Spice";
-                                        break;
-                                    case TasteResults.NotEnoughBitter:
-                                        tasteName = "Lacking in Bitterness";
+                                    case TasteResults.TooMuchCream:
+                                        tasteName = "Too Creamy";
                                         break;
 
+                                    case TasteResults.TooMuchHazelnuts:
+                                        tasteName = "Too Nutty";
+                                        break;
+
+                                    case TasteResults.TooMuchMilkChocolate:
+                                        tasteName = "Too much Milk Chocolate";
+                                        break;
+                                    case TasteResults.TooMuchWhiteChocolate:
+                                        tasteName = "Too much White Chocolate";
+                                        break;
+                                    case TasteResults.TooLittleSugar:
+                                        tasteName = "Lacks Sweet";
+                                        break;
+
+                                    case TasteResults.TooLittleEggs:
+                                        tasteName = "Lacks Fluff";
+                                        break;
+
+                                    case TasteResults.TooLittleMilk:
+                                        tasteName = "Too Dry";
+                                        break;
+                                    case TasteResults.TooLittleCornstarch:
+                                        tasteName = "Too Little Cornstarch";
+                                        break;
+                                    case TasteResults.TooLittleCoconut:
+                                        tasteName = "Too Little Coconut";
+                                        break;
+                                    case TasteResults.TooLittleCream:
+                                        tasteName = "Too Little Cream";
+                                        break;
+
+                                    case TasteResults.TooLittleHazelnuts:
+                                        tasteName = "Too little nuts";
+                                        break;
+
+                                    case TasteResults.TooLittleMilkChocolate:
+                                        tasteName = "Too Little Milk Chocolate";
+                                        break;
+                                    case TasteResults.TooLittleWhiteChocolate:
+                                        tasteName = "Too Little White Chocolate";
+                                        break;
                                 }
 
                                 if (tasteName != String.Empty)

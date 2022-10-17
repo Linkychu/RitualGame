@@ -16,6 +16,6 @@ MonoBehaviour:
   AmountPerServing: 20
   Name: WhiteChocolate
   icon: {fileID: 21300000, guid: 5d594f86ea1172e4788eed9d95c26ce0, type: 3}
-  itemTaste: 1
+  itemTaste: 0
   id: 8
   SpawnedModel: {fileID: 0}

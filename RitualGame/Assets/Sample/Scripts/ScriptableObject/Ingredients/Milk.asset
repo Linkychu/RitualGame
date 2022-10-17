@@ -16,6 +16,6 @@ MonoBehaviour:
   AmountPerServing: 25
   Name: Milk
   icon: {fileID: 21300000, guid: 3605659668809ef44a64c1a8eff9113a, type: 3}
-  itemTaste: 3
+  itemTaste: 4
   id: 6
   SpawnedModel: {fileID: 0}

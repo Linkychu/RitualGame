@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     public float inflationMultiplier = 2;
 
-    public float deflationMultiplier = 0.5f;
+    public float deflationMultiplier = 1;
     
     public float timeUntilRandomizer;
     
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int amount)
     {
-        score += amount;
+        score += (amount * Mathf.FloorToInt(multiplier));
         text.text = score.ToString();
     }
     

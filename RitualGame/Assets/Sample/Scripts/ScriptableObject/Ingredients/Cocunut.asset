@@ -16,6 +16,6 @@ MonoBehaviour:
   AmountPerServing: 25
   Name: Coconut
   icon: {fileID: 21300000, guid: e778015b8bf9c3e47b15e1feac521a9d, type: 3}
-  itemTaste: 6
+  itemTaste: 3
   id: 9
   SpawnedModel: {fileID: 0}
