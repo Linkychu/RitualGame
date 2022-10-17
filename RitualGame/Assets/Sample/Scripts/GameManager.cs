@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
     public Color nightLight;
 
     public Light light;
+
+    public TextMeshProUGUI text;
+    public int score;
     private void Awake()
     {
         instance = this;
@@ -54,6 +57,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         multiplier = ingredientMultiplier;
+        AddScore(0);
         ResetTime(false);
     }
 
@@ -77,6 +81,12 @@ public class GameManager : MonoBehaviour
     public void RandomRecipe()
     {
         
+    }
+
+    public void AddScore(int amount)
+    {
+        score += amount;
+        text.text = score.ToString();
     }
     
 

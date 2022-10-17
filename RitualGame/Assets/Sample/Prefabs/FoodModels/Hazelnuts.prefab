@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6715392060874479096}
   - component: {fileID: -5807239896945082355}
+  - component: {fileID: -7910393779474447621}
   m_Layer: 0
   m_Name: Hazelnuts
   m_TagString: Untagged
@@ -49,6 +50,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredient: {fileID: 11400000, guid: e8028bb458159e8449aa7994f4fbd92b, type: 2}
   hasSpawned: 0
+  InformationMenu: {fileID: 0}
+--- !u!65 &-7910393779474447621
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5290149275627769735}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.3871918, y: 1.3888321, z: 1.6106262}
+  m_Center: {x: 0.24063873, y: 0.19441605, z: 0.3053131}
 --- !u!1001 &1575467743962621192
 PrefabInstance:
   m_ObjectHideFlags: 0

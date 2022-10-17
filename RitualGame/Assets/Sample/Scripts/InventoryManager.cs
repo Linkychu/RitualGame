@@ -16,7 +16,7 @@ public class InventoryManager : MonoBehaviour
     //Singleton instance of class, allows us to reference the class while only having one instance of the object in the scene
     public static InventoryManager instance { get; set; }
 
-    private List<Ingredient> ingredientList = new List<Ingredient>();
+    public List<Ingredient> ingredientList = new List<Ingredient>();
 
     public RawImage[] images;
 
@@ -27,6 +27,8 @@ public class InventoryManager : MonoBehaviour
 
     private bool isActive = true;
     [SerializeField] private KeyCode hideKey;
+    
+   
     private void Awake()
     {
         instance = this;
@@ -124,35 +126,35 @@ public class InventoryManager : MonoBehaviour
     }
     
     
-    void UpdateItem()
+    public void UpdateItem()
     {
         ingredientList.Clear();
         
         var removeItemsDic = CurrentIngredients.Where(kvp => kvp.Value <= 0).Select(kvp => kvp.Key).ToArray();
 
+        Dictionary <RawImage, Texture> myImages = new Dictionary<RawImage, Texture>();
         foreach (var item in removeItemsDic)
         {
             CurrentIngredients.Remove(item);
         }
         //converts dictionary keys and values to a list
-        //ingredientList = CurrentIngredients.Keys.ToList();
+        ingredientList = CurrentIngredients.Keys.ToList();
 
-        var dict = CurrentIngredients.Where(pair => pair.Value > 0).ToList();
-        Dictionary<RawImage, Texture> myImages = new Dictionary<RawImage, Texture>();
+        
+        var dict = CurrentIngredients.Where(pair => pair.Value > 0).ToArray();
+       
         foreach (var vImage in images)
         {
             vImage.texture = defaultTexture;
             vImage.GetComponentInChildren<TextMeshProUGUI>().text = String.Empty;
             myImages.Add(vImage, defaultTexture);
         }
-
-        var listD = myImages.ToList();
-        for (int i = 0; i < listD.Count; i++)
+        
+        for (int i = 0; i < dict.Length; i++)
         {
             //since the inventory items and the ingredients will have the same amount, it's easy to compare the two and allow us to set values between each other
             //sets image texture to be the icon image of the same number as well as the text
-
-            if ((!myImages.ContainsValue(dict[i].Key.icon.texture)) && myImages.Count > 0)
+            if(!(myImages.ContainsValue(dict[i].Key.icon.texture)))
             {
                 images[i].texture = dict[i].Key.icon.texture;
                 images[i].GetComponentInChildren<TextMeshProUGUI>().text = dict[i].Value.ToString();
@@ -161,15 +163,21 @@ public class InventoryManager : MonoBehaviour
             
 
         }
+        
+        //myImages.Clear();
+        
+    }
 
-
+    public void ClearSlots()
+    {
         
-
+        foreach (var image in images)
+        {
+            image.texture = defaultTexture;
+            image.GetComponentInChildren<TextMeshProUGUI>().text = String.Empty;
+        }
         
         
-       
-        
-       
         
         
     }

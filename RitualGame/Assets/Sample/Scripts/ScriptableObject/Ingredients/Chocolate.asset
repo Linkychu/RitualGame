@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec5671345f94f48b8f37289b404acea, type: 3}
   m_Name: Chocolate
   m_EditorClassIdentifier: 
-  Model: {fileID: 2413131999469606226, guid: c34b502a6caf0a14c9182a538e06751c, type: 3}
+  Model: {fileID: 5158073999850011577, guid: ced75a45fdc095a4586caca974945913, type: 3}
   AmountPerServing: 20
   Name: MilkChocolate
   icon: {fileID: 21300000, guid: db66f2bbdf89df74e81ffe9ec2e9303d, type: 3}

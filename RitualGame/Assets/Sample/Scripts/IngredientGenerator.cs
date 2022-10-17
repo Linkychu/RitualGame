@@ -7,6 +7,7 @@ using SeededRandom;
 
 using SeedRandom = SeededRandom.RandomGenerator;
 using Extensions;
+using UnityEngine.UI;
 
 
 public class IngredientGenerator : MonoBehaviour
@@ -21,9 +22,10 @@ public class IngredientGenerator : MonoBehaviour
     
     private List<Ingredient> Ingredients = new List<Ingredient>();
 
-    public bool randomiseIngredients = true;
-
-
+    public bool randomiseIngredients = true; public GameObject NPC;
+    public RawImage image;
+    
+    
     private void Awake()
     {
         instance = this;
@@ -70,6 +72,9 @@ public class IngredientGenerator : MonoBehaviour
         {
             Ingredients.Add(varIngredient.ingredient);
         }
+
+        image.texture = CraftingManager.instance.recipes[0].icon.texture;
+        NPC.GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV();
     }
     
     void GenerateRandomItems()
@@ -100,6 +105,9 @@ public class IngredientGenerator : MonoBehaviour
             ingredient.Spawn(pos, ingredientParent);
 
         }
+        
+       
+        
     }
 
     // Update is called once per frame

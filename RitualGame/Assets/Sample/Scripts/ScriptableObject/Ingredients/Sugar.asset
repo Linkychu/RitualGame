@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec5671345f94f48b8f37289b404acea, type: 3}
   m_Name: Sugar
   m_EditorClassIdentifier: 
-  Model: {fileID: 2413131999469606226, guid: 016a6f2fd3ef5004898de242a6f0339f, type: 3}
+  Model: {fileID: 5580244223135921384, guid: 0475a4ba18fe45249afcdfd327d9edeb, type: 3}
   AmountPerServing: 10
   Name: Sugar
   icon: {fileID: 21300000, guid: 814d144d68b783643ba7189d6ac8ea93, type: 3}

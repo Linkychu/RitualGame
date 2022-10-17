@@ -8,6 +8,7 @@ public class IngredientScript : MonoBehaviour
    
     public bool hasSpawned;
 
+    public GameObject InformationMenu;
     private void Awake()
     {
         hasSpawned = false;

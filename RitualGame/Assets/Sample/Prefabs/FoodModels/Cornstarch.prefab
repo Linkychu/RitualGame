@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7006653262544549528}
   - component: {fileID: -2431775081869011809}
+  - component: {fileID: -2401153539243454375}
   m_Layer: 0
   m_Name: Cornstarch
   m_TagString: Untagged
@@ -46,6 +47,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredient: {fileID: 11400000, guid: 0477d98df146c9f419adf204eca1ba8e, type: 2}
   hasSpawned: 0
+  InformationMenu: {fileID: 0}
+--- !u!65 &-2401153539243454375
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5186581094980785379}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &309066790279160792
 PrefabInstance:
   m_ObjectHideFlags: 0

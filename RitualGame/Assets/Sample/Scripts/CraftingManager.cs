@@ -72,6 +72,8 @@ namespace cookingData
 
         private int perfectCount;
 
+       
+
 
         private void Awake()
         {
@@ -178,6 +180,7 @@ namespace cookingData
                         if (result.serving == Mathf.RoundToInt(sIngredient.serving))
                         {
                             //checks how many perfect ingredients we got (one's that match)
+                           
                             perfectCount++;
                         }
                         
@@ -208,6 +211,8 @@ namespace cookingData
                                     results.Add(TasteResults.TooWatery);
                                     break;
                             }
+                            
+                            
                             
                             Debug.Log("AddedTooMuch");
                         }
@@ -241,12 +246,16 @@ namespace cookingData
                                     break;
                             }
                             
+                            
+                            GameManager.instance.AddScore(25);
                             Debug.Log("TooLittle");
                         }
                         
                         else
                         {
                             results.Add(TasteResults.WrongIngredient);
+                            
+                            
                         }
                         
                         count++;
@@ -400,15 +409,18 @@ namespace cookingData
                             case 3:
                                 text =
                                     $"You crafted a {t.name}, however your {t.name} was {stringNames[0]} , {stringNames[1]} and {stringNames[2]}";
+                                GameManager.instance.AddScore(25);
 
                                 break;
                             case 2:
                                 text =
                                     $"You crafted a {t.name}, however your {t.name} was {stringNames[0]} and {stringNames[1]}";
+                                GameManager.instance.AddScore(25);
                                 break;
                             case 1:
                                 text =
                                     $"You crafted a {t.name}, however your {t.name} was {stringNames[0]}";
+                                GameManager.instance.AddScore(25);
                                 break;
 
                         }
@@ -418,7 +430,8 @@ namespace cookingData
                     //perfect bueno dialogue
                     else if (perfectBueno)
                     {
-                        text = $"You crafted a {t.name}";   
+                        text = $"You crafted a perfect {t.name}";   
+                        GameManager.instance.AddScore(100);
                     }
                     
                     //result if you somehow managed to craft something that doesn't exist
@@ -426,6 +439,7 @@ namespace cookingData
                     {
                         text = $"You crafted something that isn't even on the menu!??? How did you manage that?";
                         image = emptyImage;
+                        GameManager.instance.AddScore(0);
                    
 
                     }
